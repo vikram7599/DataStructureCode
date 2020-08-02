@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 #include "treeNode.h"
 
 using namespace std;
@@ -22,6 +23,7 @@ TreeNode<int> *takeInputLevelWise(){
             cin >> childValue;
             TreeNode<int> *child = new TreeNode<int>(childValue);
             front->children.push_back(child);
+            qt.push(child);
         }
     }    
 
@@ -64,6 +66,15 @@ void printTree(TreeNode<int> *root){
     }
 
 }
+
+void deleteTree(TreeNode<int> *root){
+    for(int i=0; i<root->children.size(); i++){
+        deleteTree(root->children[i]);
+    }
+    delete root;
+}
+
+// 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 
 int main(){
 
