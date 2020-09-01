@@ -4,36 +4,43 @@
 #include<vector>
 using namespace std;
 
-int main() {
-	unordered_map<vector<int>, int> ourmap;
-	
-	// insert
-	pair<string, int> p("abc", 1);
-	ourmap.insert(p);
-	ourmap["def"] = 2;
-
-    if(ourmap.count("def") > 0){
-        cout << "Correct" << endl;
+int printPairs(int *input, int n, int k) {
+    vector< pair<int,int> > v;
+	for(int i = 0; i < n; i++){
+        for(int j = i; j < n; j++){
+            int ans1 = input[i] - input[j];
+            int ans2 = input[j] - input[i];
+            if(ans1 == k){
+                if(input[i] < input[j]){
+                    v.push_back(make_pair(input[i], input[j]));
+                }else{
+                    v.push_back(make_pair(input[j], input[i]));
+                }
+            }
+            if(ans2 == k){
+                if(input[i] < input[j]){
+                    v.push_back(make_pair(input[i], input[j]));
+                }else{
+                    v.push_back(make_pair(input[j], input[i]));
+                }
+            }
+        }
     }
-	// find or access
-	cout << ourmap["abc"] << endl;
-	cout << ourmap.at("abc") << endl;
-	
-	//cout << ourmap.at("ghi") << endl;
-	cout << "size : " << ourmap.size() << endl;
-	cout << ourmap["ghi"] << endl;
-	cout << "size : " << ourmap.size() << endl;
+    
+    return v;
+}
 
-	// check Presense
-	if (ourmap.count("ghi") > 0) {
-		cout << "ghi is present" << endl;
-	}
 
-	// erase
-	ourmap.erase("ghi");
-	cout << "size : " << ourmap.size() << endl;
-	if (ourmap.count("ghi") > 0) {
-		cout << "ghi is present" << endl;
-	}
+
+
+int main() {
+	int *arr = new int[4];
+	arr[0] = 1;
+	arr[1] = 2;
+	arr[2] = 3;
+	arr[3] = 4;		
+
+	int ans = printPairs(arr, 4, 2);
+	cout << ans <<endl;
 
 }
